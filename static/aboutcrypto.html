@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>PulsarTrade — Термины</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        :root {
+            --bg: #16181D;
+            --bg-elevated: #1E2128;
+            --border: #2A2E38;
+            --text: #E8E6E1;
+            --text-dim: #8A8D96;
+            --accent: #D4A24C;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, system-ui, sans-serif;
+        }
+        #top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+        }
+        #top-nav h1 {
+            margin: 0;
+            font-size: 18px;
+            font-family: "JetBrains Mono", monospace;
+            font-weight: 500;
+        }
+        #nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+        #top-nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 13px;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            background: var(--bg);
+        }
+        #top-nav a.active, #top-nav a:hover { color: #f3c15c; }
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 24px 64px; }
+        .kicker {
+            margin: 0 0 8px;
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+        h2 {
+            margin: 0 0 12px;
+            font-family: "JetBrains Mono", monospace;
+            font-weight: 500;
+            font-size: 32px;
+        }
+        .lead { color: var(--text-dim); margin: 0 0 24px; max-width: 720px; }
+        #term-search {
+            width: 100%;
+            max-width: 420px;
+            height: 44px;
+            margin: 0 0 28px;
+            padding: 0 12px;
+            background: var(--bg-elevated);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: "JetBrains Mono", monospace;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+        .card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 18px 16px;
+        }
+        .card h3 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            font-family: "JetBrains Mono", monospace;
+            color: var(--accent);
+        }
+        .card p { margin: 0; color: #c9cbd1; line-height: 1.5; font-size: 14px; }
+        .hidden { display: none; 
+        }
+        #nav-links a.active {
+            color: #111 !important;
+            background: #e0b34c !important;
+            border-color: #e0b34c !important;
+}
+
+    </style>
+</head>
+<body>
+    <nav id="top-nav">
+        <h1>PulsarTrade</h1>
+        <div id="nav-links">
+            <a href="/home">Home</a>
+            <a href="/strategies">Strategies</a>
+            <a href="/converter">Converter</a>
+            <a href="/news">News</a>
+            <a href="/aboutcrypto" class="active">About</a>
+        </div>
+    </nav>
+
+    <div class="wrap">
+        <p class="kicker">Словарь</p>
+        <h2>Криптотермины</h2>
+        <p class="lead">Коротко про рынок, графики и индикаторы. Это справочник, не торговые советы.</p>
+        <input id="term-search" type="search" placeholder="Найти термин: свеча, RSI, газ...">
+
+        <div class="grid" id="terms">
+            <article class="card" data-q="биткоин btc bitcoin"><h3>Bitcoin (BTC)</h3><p>Первая криптовалюта. Часто считают «цифровым золотом» и основной парой рынка.</p></article>
+            <article class="card" data-q="эфир ethereum eth"><h3>Ethereum (ETH)</h3><p>Сеть со смарт-контрактами. На ней работают большинство токенов и DeFi.</p></article>
+            <article class="card" data-q="альткоин altcoin"><h3>Альткоин</h3><p>Любая монета кроме биткоина: ETH, SOL, DOGE и остальные.</p></article>
+            <article class="card" data-q="стейбл usdt usdc"><h3>Стейблкоин</h3><p>Токен с курсом около $1. USDT и USDC нужны, чтобы считать цену без скачков доллара.</p></article>
+            <article class="card" data-q="токен token"><h3>Токен</h3><p>Монета, выпущенная в чужой сети (часто в Ethereum), а не своя отдельная цепочка.</p></article>
+            <article class="card" data-q="пара тикер symbol usdt"><h3>Торговая пара</h3><p>Две валюты в одном тикере. BTCUSDT — цена биткоина в тезере.</p></article>
+            <article class="card" data-q="спот spot"><h3>Спот</h3><p>Обычная покупка и продажа монеты «сейчас». Без кредитного плеча.</p></article>
+            <article class="card" data-q="фьючерс futures"><h3>Фьючерс</h3><p>Контракт на цену в будущем. Можно торговать с плечом, риск выше.</p></article>
+            <article class="card" data-q="плечо leverage ликвидация"><h3>Плечо</h3><p>Торговля на сумму больше своего депозита. При резком движении позицию может закрыть биржа.</p></article>
+            <article class="card" data-q="лонг long покупка"><h3>Лонг</h3><p>Ставка на рост цены: купил дешевле, продал дороже.</p></article>
+            <article class="card" data-q="шорт short продажа"><h3>Шорт</h3><p>Ставка на падение: сначала продаёшь, потом откупаешь дешевле.</p></article>
+            <article class="card" data-q="ордер order лимитный рыночный"><h3>Ордер</h3><p>Заявка на бирже. Рыночный исполняется сразу по цене стакана, лимитный — только по указанной цене.</p></article>
+            <article class="card" data-q="стакан order book"><h3>Стакан</h3><p>Список заявок на покупку и продажу. По нему видно, где стоят крупные ордера.</p></article>
+            <article class="card" data-q="спред spread"><h3>Спред</h3><p>Разница между лучшей покупкой и лучшей продажей. Чем уже, тем ликвиднее пара.</p></article>
+            <article class="card" data-q="ликвидность volume объём"><h3>Ликвидность</h3><p>Насколько легко купить или продать без сильного сдвига цены. Обычно смотрят объём за 24 часа.</p></article>
+            <article class="card" data-q="волатильность volatility"><h3>Волатильность</h3><p>Насколько сильно цена скачет. Высокая волатильность — большие ходы и больший риск.</p></article>
+            <article class="card" data-q="свеча candlestick ohlc"><h3>Свеча</h3><p>Кусок графика за интервал: открытие, максимум, минимум, закрытие. Зелёная — закрытие выше открытия, красная — ниже.</p></article>
+            <article class="card" data-q="таймфрейм timeframe 1h 1d"><h3>Таймфрейм</h3><p>Длина одной свечи: 1m, 5m, 1h, 1d. Короткий — шум, длинный — общая тенденция.</p></article>
+            <article class="card" data-q="поддержка resistance сопротивление"><h3>Поддержка и сопротивление</h3><p>Зоны, где цена раньше отскакивала вниз или вверх. Не закон, а ориентир на графике.</p></article>
+            <article class="card" data-q="тренд trend"><h3>Тренд</h3><p>Направление рынка: вверх, вниз или боковик, когда цена ходит в диапазоне.</p></article>
+            <article class="card" data-q="sma ma средняя"><h3>SMA</h3><p>Простое скользящее среднее: средняя цена закрытия за N свечей. Сглаживает шум.</p></article>
+            <article class="card" data-q="ema"><h3>EMA</h3><p>Средняя, которая сильнее учитывает последние свечи. Реагирует быстрее, чем SMA.</p></article>
+            <article class="card" data-q="rsi индикатор"><h3>RSI</h3><p>Индекс силы движения от 0 до 100. Часто смотрят зоны ниже 30 и выше 70 — перепроданность и перекупленность.</p></article>
+            <article class="card" data-q="сигнал buy sell hold"><h3>Сигнал</h3><p>Метка индикатора: buy, sell или hold. В учебном проекте это формула, не приказ покупать.</p></article>
+            <article class="card" data-q="блокчейн blockchain"><h3>Блокчейн</h3><p>Цепочка блоков с транзакциями. Данные дописываются, старые записи почти нельзя переписать.</p></article>
+            <article class="card" data-q="кошелёк wallet ключ seed"><h3>Кошелёк</h3><p>Адрес плюс ключ. Кто знает seed-фразу, тот владеет монетами.</p></article>
+            <article class="card" data-q="газ gas комиссия"><h3>Газ / комиссия</h3><p>Плата сети за транзакцию. В Ethereum это газ, на бирже — торговая комиссия.</p></article>
+            <article class="card" data-q="defi"><h3>DeFi</h3><p>Финансы без банка: обмен, займы и пулы на смарт-контрактах.</p></article>
+            <article class="card" data-q="nft"><h3>NFT</h3><p>Токен с уникальным id. Часто картинка или билет, не взаимозаменяемый как BTC.</p></article>
+            <article class="card" data-q="ath atl максимум минимум"><h3>ATH / ATL</h3><p>All-Time High и All-Time Low — исторический максимум и минимум цены.</p></article>
+            <article class="card" data-q="dump pump памп дамп"><h3>Памп и дамп</h3><p>Резкий разгон цены и такое же резкое падение. Часто на малоликвидных монетах.</p></article>
+            <article class="card" data-q="whale кит"><h3>Кит</h3><p>Крупный держатель. Его сделки могут двигать цену заметнее розницы.</p></article>
+            <article class="card" data-q="market cap капитализация"><h3>Капитализация</h3><p>Цена монеты × количество в обороте. Грубая оценка «размера» актива.</p></article>
+            <article class="card" data-q="dyor"><h3>DYOR</h3><p>Do Your Own Research: проверяй данные сам, не копируй чужие сигналы вслепую.</p></article>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById("term-search");
+        const cards = [...document.querySelectorAll(".card")];
+        input.addEventListener("input", () => {
+            const q = input.value.trim().toLowerCase();
+            cards.forEach((card) => {
+                const text = (card.dataset.q + " " + card.innerText).toLowerCase();
+                card.classList.toggle("hidden", Boolean(q) && !text.includes(q));
+            });
+        });
+        document.querySelectorAll("#nav-links a").forEach((link) => {
+            link.classList.toggle("active", link.getAttribute("href") === location.pathname);
+        });
+    </script>
+    <script src="/static/nav.js"></script>
+</body>
+</html>

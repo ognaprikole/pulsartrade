@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PulsarTrade</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<script src="/static/nav.js"></script>
+<body data-intervals="1h,4h,1d">
+    <nav id="top-nav">
+    <h1>PulsarTrade</h1>
+    <div id="nav-links">
+        <a href="/home">Home</a>
+        <a href="/strategies">Strategies</a>
+        <a href="/converter">Converter</a>
+        <a href="/news">News</a>
+        <a href="/aboutcrypto">About</a>
+    </div>
+</nav>
+
+    <div class="container">
+        <div class="workspace">
+            <section class="workspace-main">
+                <select id="symbol-select"></select>
+                <div id="price-display"></div>
+                <div id="interval-buttons"></div>
+                <div id="chart"></div>
+                <div id="signals">
+                    <p id="sma-signal">SMA: —</p>
+                    <p id="rsi-signal">RSI: —</p>
+                </div>
+            </section>
+
+            <aside class="workspace-side">
+                <div id="converter">
+                    <input type="number" id="amount" placeholder="Количество" value="1">
+                    <input type="text" id="from-currency" placeholder="From (BTC)" value="BTC">
+                    <input type="text" id="to-currency" placeholder="To (USDT)" value="USDT">
+                    <button id="convert-btn">Конвертировать</button>
+                    <p id="convert-result"></p>
+                </div>
+                <div id="live-tickers"></div>
+                <article id="latest-news"></article>
+            </aside>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

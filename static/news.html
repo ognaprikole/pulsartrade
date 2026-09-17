@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>PulsarTrade — News</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+    :root {
+        --bg: #16181D;
+        --bg-elevated: #1E2128;
+        --border: #2A2E38;
+        --text: #E8E6E1;
+        --text-dim: #8A8D96;
+        --accent: #D4A24C;
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, system-ui, sans-serif;
+    }
+    #top-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+        background: var(--bg-elevated);
+        border-bottom: 1px solid var(--border);
+    }
+    #top-nav h1 {
+        margin: 0;
+        font-size: 18px;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 500;
+    }
+    #nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+    #top-nav a {
+        color: var(--text-dim);
+        text-decoration: none;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        padding: 8px 14px;
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        background: var(--bg);
+    }
+    #top-nav a.active, #top-nav a:hover { color: #f3c15c; }
+    .news {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 28px 24px 64px;
+    }
+    .kicker {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin: 0 0 8px;
+    }
+    .news h2 {
+        margin: 0 0 28px;
+        font-size: 32px;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 500;
+    }
+    .news-status {
+        color: var(--text-dim);
+        font-size: 16px;
+    }
+    #news-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .news-item {
+        display: block;
+        padding: 22px 24px;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.35;
+    }
+    .news-item:hover {
+        color: var(--accent);
+        border-color: #3a3f4b;
+    }
+    .news-item span {
+        display: block;
+        margin-top: 10px;
+        color: var(--text-dim);
+        font-size: 13px;
+        font-weight: 400;
+        font-family: "JetBrains Mono", monospace;
+    }
+    @media (min-width: 900px) {
+        #news-list {
+            grid-template-columns: 1fr 1fr;
+        }
+        .news-item:first-child {
+            grid-column: 1 / -1;
+            font-size: 26px;
+            padding: 28px 32px;
+        }
+    }
+    #nav-links a.active {
+        color: #111 !important;
+        background: #e0b34c !important;
+        border-color: #e0b34c !important;
+}
+</style>
+</head>
+<script src="/static/nav.js"></script>
+<body>
+   <nav id="top-nav">
+    <h1>PulsarTrade</h1>
+    <div id="nav-links">
+        <a href="/home">Home</a>
+        <a href="/strategies">Strategies</a>
+        <a href="/converter">Converter</a>
+        <a href="/news">News</a>
+        <a href="/aboutcrypto">About</a>
+    </div>
+</nav>
+    <div class="news">
+        <p class="kicker">Лента</p>
+        <h2>Новости</h2>
+        <p id="news-status" class="news-status">Загружаю…</p>
+        <div id="news-list"></div>
+    </div>
+    <script>
+        const API = "http://127.0.0.1:8000";
+        const status = document.getElementById("news-status");
+        const list = document.getElementById("news-list");
+
+        async function loadNews() {
+            try {
+                let items = [];
+                const feed = await fetch(API + "/api/news");
+                if (feed.ok) items = await feed.json();
+                if (!Array.isArray(items) || !items.length) {
+                    const one = await fetch(API + "/api/news/latest");
+                    if (one.ok) {
+                        const item = await one.json();
+                        items = item && item.title ? [item] : [];
+                    }
+                }
+                if (!items.length) {
+                    status.textContent = "Лента пустая. Проверь /api/news в uvicorn.";
+                    return;
+                }
+                status.textContent = "";
+                list.innerHTML = items.map((item) => (
+                    '<a class="news-item" href="' + (item.url || "#") +
+                    '" target="_blank" rel="noopener noreferrer">' +
+                    (item.title || "Без заголовка") +
+                    '<span>' + (item.source || "") + '</span></a>'
+                )).join("");
+            } catch (e) {
+                status.textContent = "Нет связи с сервером. Uvicorn должен быть запущен.";
+            }
+        }
+        loadNews();
+    
+    </script>
+<script src="/static/nav.js"></script>
+</body>
+</html>
